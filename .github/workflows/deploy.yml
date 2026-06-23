@@ -1,0 +1,98 @@
+name: Deploy Super Markdown Github Pages
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'docs/**'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create output directory
+        run: mkdir -p _site
+
+      - name: Process Markdown files via Super Markdown API
+        env:
+          SAAS_AUTH: ${{ secrets.SAAS_APP_AUTH }}
+          API_URL: "https://super-markdown.com/api/space/public/convert-markdown-file-html/"
+          REPO_PATH: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          FOLDER_NAME: "github_docs"
+          MODE: "light-mode"
+        run: |
+          for file in docs/*.md; do
+            filename=$(basename "$file" .md)
+            echo "--- Processus : $file ---"
+
+            # 1. Read the file content
+            RAW_CONTENT=$(cat "$file")
+
+            STEP1=$(echo "$RAW_CONTENT" | sed -E "s|(\[[^]]*\]\()([^)]*)\.md\)|\1${REPO_PATH}/\2.html\)|g")
+
+            STEP2=$(echo "$STEP1" | sed -E "s|href=\"([^\"]*)\.md\"|href=\"${REPO_PATH}/\1.html\"|g")
+
+            STEP3=$(echo "$STEP2" | sed -E "s|url=\"([^\"]*)\.md\"|url=\"${REPO_PATH}/\1.html\"|g")
+
+            
+
+            # 2. Create JSON payload
+            # Fields : name_file, folder, convert (bool), data (string)
+            JSON_PAYLOAD=$(jq -n \
+              --arg nf "$filename" \
+              --arg fd "$FOLDER_NAME" \
+              --arg mode "$MODE" \
+              --arg dt "$STEP3" \
+              '{filename: $nf, parent: $fd, convert: false, data: $dt, mode: $mode}')
+
+            # 3. Call the API
+            RESPONSE=$(curl -s -X POST "$API_URL" \
+              -H "app_auth: $SAAS_AUTH" \
+              -H "Content-Type: application/json" \
+              -d "$JSON_PAYLOAD")
+
+            echo "Response from API : $RESPONSE"
+
+            # 4. Extract the HTML Code
+            HTML_CODE=$(echo "$RESPONSE" | jq -r '.data.html // empty')
+
+            if [ -z "$HTML_CODE" ] || [ "$HTML_CODE" = "null" ]; then
+                echo "❌ ERROR : HTML not found in response"
+                echo "Response : $RESPONSE"
+                exit 1
+            fi
+            # 5. Save the direct HTML code to a file
+            echo "$HTML_CODE" > "_site/$filename.html"
+            echo "✅ Page $filename.html generated."
+          done
+
+
+          if [ -f "_site/README.html" ]; then mv _site/README.html _site/index.html; fi
+            
+
+          
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
