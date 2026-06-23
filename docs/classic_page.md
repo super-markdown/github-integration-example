@@ -15,7 +15,7 @@
 
 
 
-:: header{theme="green-theme" mode="mode-text" font="serif-font-heading" align="left-align" box_type="container-view" sub_title="sub title" button_link="https://super-md.com" button_text="Super Markdown" cover="" title="title of header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."} :: header
+:: header{theme="green-theme" mode="mode-text" font="serif-font-heading" align="left-align" box_type="container-view" sub_title="sub title" button_link="https://super-markdown.com" button_text="Super Markdown" cover="" title="title of header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."} :: header
 
 __________
 
@@ -42,7 +42,7 @@ __________
 
 _______
 
-    :: spotlight{theme="green-theme" mode="mode-classic" version="left-image-right-text" font="serif-font-heading" box_type="container-full" title="Title of spotlight" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." image="http://localhost:8080/media/uploads/upload/cover.jpg_441ccd79.jpeg"} :: spotlight
+    :: spotlight{theme="green-theme" mode="mode-classic" version="left-image-right-text" font="serif-font-heading" box_type="container-full" title="Title of spotlight" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." image="https://super-markdown.com/static/images/cover.jpg"} :: spotlight
 
     # Title of second section
   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -53,11 +53,11 @@ _______
 
    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-   :: image{image="http://localhost:8080/media/uploads/upload/cover3.jpg_0a3f2e3d.jpeg" legend="Legend of image"} :: image
+   :: image{image="https://super-markdown.com/static/images/cover3.jpg" legend="Legend of image"} :: image
 
 
 :: content
 
 __________
 
-:: banner{theme="green-theme" mode="mode-centered" font="serif-font-heading" align="left-align" box_type="container-full" cover="" sub_title="Sub title" title="Title of banner" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." button_link="https://super-md.com" button_text="Super Markdown"} :: banner
+:: banner{theme="green-theme" mode="mode-centered" font="serif-font-heading" align="left-align" box_type="container-full" cover="" sub_title="Sub title" title="Title of banner" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." button_link="https://super-markdown.com.com" button_text="Super Markdown"} :: banner

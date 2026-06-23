@@ -40,15 +40,15 @@ __________
 :: layout{layout="grid-layout-3" font="sans-serif-font-global" box_type="container-view"}
 
  :- container{theme=""}
-    :: image{image="http://localhost:8080/static/images/chart.jpg" legend="Legend of image"} :: image
+    :: image{image="https://super-markdown.com/static/images/chart.jpg" legend="Legend of image"} :: image
  :- container
  
  :- container{theme=""}
-    :: image{image="http://localhost:8080/static/images/chart-image.png" legend="Legend of image"} :: image
+    :: image{image="https://super-markdown.com/static/images/chart-image.png" legend="Legend of image"} :: image
  :- container
 
  :- container{theme=""}
-    :: image{image="http://localhost:8080/static/images/chart3.jpg" legend="Legend of image"} :: image
+    :: image{image="https://super-markdown.com/static/images/chart3.jpg" legend="Legend of image"} :: image
  :- container
 
 :: layout
