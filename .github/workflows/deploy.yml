@@ -22,6 +22,17 @@ jobs:
       - name: Create output directory
         run: mkdir -p _site
 
+      - name: Verify the secret variable SAAS_APP_AUTH
+        env:
+          TEST_SECRET: ${{ secrets.SAAS_APP_AUTH }}
+        run: |
+          if [ -z "$TEST_SECRET" ]; then
+            echo "❌ The secret SAAS_APP_AUTH is empty or not found."
+            exit 1
+          else
+            echo "✅ The secret is here."
+          fi
+
       - name: Process Markdown files via Super Markdown API
         env:
           SAAS_AUTH: ${{ secrets.SAAS_APP_AUTH }}
