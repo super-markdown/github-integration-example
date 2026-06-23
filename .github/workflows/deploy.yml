@@ -16,10 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # CORRECTION : Passage à la version v4 complète ou v6 selon vos règles internes
-      # Utiliser simplement @v4 récupère automatiquement les derniers patchs Node 24 de GitHub.
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Create output directory
         run: mkdir -p _site
@@ -74,7 +72,7 @@ jobs:
 
           if [ -f "_site/README.html" ]; then mv _site/README.html _site/index.html; fi
 
-      # CORRECTION : Mise à jour de v3 vers v5 pour le support complet de Node 24
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
@@ -87,7 +85,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      # CORRECTION : Passage à la version v4 à jour (ou v5) nettoyée des alertes de dépréciation
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
